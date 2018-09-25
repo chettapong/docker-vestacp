@@ -1,0 +1,26 @@
+version: "3.3"
+
+services:
+  vesta:
+    image: niiknow/vestacp
+    container_name: vesta
+    volumes:
+      - "./backup:/backup"
+      - "./vesta:/vesta"
+      - "./home:/home"
+    ports:
+      - "2222:22"
+      - "80:80"
+      - "443:443"
+      - "8083:8083"
+    privileged: true
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    sysctls:
+      net.core.somaxconn: '511'
+    labels:
+      - "Vesta Control Panel"
+    restart: unless-stopped
